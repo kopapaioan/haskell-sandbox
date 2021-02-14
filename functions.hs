@@ -100,3 +100,18 @@ describeList xs = "The list is " ++ what xs
     where what [] = "empty"
           what [x] = "a singleton list"
           what xs = "a longer list"
+
+maximum' :: (Ord a) => [a] -> a
+maximum' [] = error "maximum of empty list"
+maximum' [x] = x
+maximum  (x:xs) = max x (maximum' xs)
+
+quicksort :: (Ord a) => [a] -> [a]
+quicksort [] = []
+quicksort (x:xs) = 
+    let smallerSorted = quicksort [a | a <- xs, a <= x]
+        biggerSorted = quicksort [a | a <- xs, a > x]
+    in smallerSorted ++ [x] ++ biggerSorted
+
+applyTwice :: (a -> a) -> a -> a
+applyTwice f x = f (f x)
